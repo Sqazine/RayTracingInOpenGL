@@ -252,6 +252,14 @@ bool MetallicScatter(in Metallic metallic,in Ray incident,in HitRecord hitRecord
     return dot(scattered.direction,hitRecord.normal)>0;
 }
 
+float reflectance(float cosine,float ref_idx)
+{
+     // Use Schlick's approximation for reflectance.
+    float r0 = (1-ref_idx) / (1+ref_idx);
+    r0 = r0*r0;
+    return r0 + (1-r0)*pow((1 - cosine),5);
+}
+
 bool DielectricScatter(in Dielectric dielectric,in Ray incident,in HitRecord hitRecord,out Ray scattered,out vec3 attenuation)
 {
     attenuation=vec3(1.0);
@@ -264,7 +272,7 @@ bool DielectricScatter(in Dielectric dielectric,in Ray incident,in HitRecord hit
     bool cannot_refract=refraction_ratio*sin_theta>1.0;
     vec3 dir;
 
-    if(cannot_refract)
+    if(cannot_refract||reflectance(cos_theta,refraction_ratio)>Rand())
         dir=reflect(unit_dir,hitRecord.normal);
     else
         dir=refract(unit_dir,hitRecord.normal,refraction_ratio);

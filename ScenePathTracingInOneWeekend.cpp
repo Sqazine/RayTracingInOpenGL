@@ -46,7 +46,7 @@ void ScenePathTracingInOneWeekend::Init()
 
     m_World.AddSphere(Sphere(Vector3f(0.0f, 0.0f, -1.0f), 0.5f, MATERIAL_HALF_LAMBERTIAN, 1));
     m_World.AddSphere(Sphere(Vector3f(-1.1f, 0.0f, -1.0f), 0.5f, MATERIAL_DIELECTRIC, 0));
-    m_World.AddSphere(Sphere(Vector3f(-1.1f, 0.0f, -1.0f), -0.45f, MATERIAL_DIELECTRIC, 0));
+    m_World.AddSphere(Sphere(Vector3f(-1.1f, 0.0f, -1.0f), -0.499f, MATERIAL_DIELECTRIC, 0));
     m_World.AddSphere(Sphere(Vector3f(1.1f, 0.0f, -1.0f), 0.5f, MATERIAL_METALLIC, 1));
     m_World.AddSphere(Sphere(Vector3f(0.0f, -100.5f, -1.0f), 100.0f, MATERIAL_HALF_LAMBERTIAN, 0));
 
