@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include "Scene.h"
-#include "GLContext.h"
+#include "GL/Context.h"
 #include "Vector2.h"
 
 class Application

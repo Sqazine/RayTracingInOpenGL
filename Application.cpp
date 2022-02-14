@@ -27,7 +27,7 @@ void Application::Run()
 		ProcessInput();
 		Update();
 		Draw();
-		GLContext::SwapWindow();
+		GL::Context::SwapWindow();
 	}
 }
 
@@ -36,7 +36,7 @@ void Application::Init()
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		SDL_Log("failed to init sdl!");
 
-	GLContext::CreateContext(m_RenderContextCreateInfo);
+	GL::Context::CreateContext(m_RenderContextCreateInfo);
 
 	Input::Init();
 
@@ -45,7 +45,7 @@ void Application::Init()
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplSDL2_InitForOpenGL(GLContext::GetWindowHandle(), GLContext::GetContextHandle());
+	ImGui_ImplSDL2_InitForOpenGL(GL::Context::GetWindowHandle(), GL::Context::GetContextHandle());
 	ImGui_ImplOpenGL3_Init("#version 450 core");
 
 	Timer::Init();
@@ -104,7 +104,7 @@ void Application::Draw()
 	m_Scenes[m_CurSceneIndex]->Render();
 
 	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame(GLContext::GetWindowHandle());
+	ImGui_ImplSDL2_NewFrame(GL::Context::GetWindowHandle());
 	ImGui::NewFrame();
 
 	m_Scenes[m_CurSceneIndex]->RenderUI();
@@ -119,7 +119,7 @@ void Application::CleanUp()
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
 
-	GLContext::DestroyContext();
+	GL::Context::DestroyContext();
 
 	SDL_Quit();
 }

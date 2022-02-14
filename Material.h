@@ -24,3 +24,11 @@ struct Metal
     Vector3f albedo;
     float roughness;
 };
+
+struct Dielectric
+{
+    Dielectric(Vector3f albedo, float roughness, float ior) : albedo(albedo), roughness(roughness), ior(ior) {}
+    Vector3f albedo;
+    float roughness;
+    float ior;
+};

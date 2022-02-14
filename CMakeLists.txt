@@ -14,14 +14,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 FILE(GLOB ROOT_DIR "*.h" "*.cpp")
+FILE(GLOB GL_DIR "GL/*.h" "GL/*.cpp")
 
 source_group("" FILES ${ROOT_DIR})
+source_group("GL" FILES  ${GL_DIR})
 
 find_package(glad CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
-add_executable(RayTracingInOpenGL ${ROOT_DIR} )
+add_executable(RayTracingInOpenGL ${ROOT_DIR}  ${GL_DIR})
 
 target_link_libraries(RayTracingInOpenGL PRIVATE glad::glad SDL2::SDL2 imgui::imgui)
 

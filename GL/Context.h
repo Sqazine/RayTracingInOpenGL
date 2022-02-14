@@ -2,7 +2,7 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include <string_view>
-#include "Vector2.h"
+#include "../Vector2.h"
 struct WindowCreateInfo
 {
     std::string title;
@@ -17,10 +17,13 @@ struct RenderContextCreateInfo
     bool useDoubleBuffer = true;
 };
 
-class GLContext
+namespace GL
+{
+
+class Context
 {
 public:
-    ~GLContext();
+    ~Context();
 
     static void CreateContext(const RenderContextCreateInfo &config);
     static void DestroyContext();
@@ -33,8 +36,10 @@ public:
 
     static Vector2u32 GetWindowExtent();
 
+    static bool IsSupportExtension(std::string_view extensionName);
+
 private:
-    GLContext();
+    Context();
 
     static RenderContextCreateInfo m_RenderCreateInfo;
 
@@ -42,3 +47,4 @@ private:
 
     static SDL_Window *m_WindowHandle;
 };
+}
