@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "App.h"
 #include <glad/glad.h>
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
@@ -8,16 +8,16 @@
 #include "Random.h"
 #include "ScenePathTracingInOneWeekend.h"
 
-Application::Application(RenderContextCreateInfo renderContextCreateInfo)
+App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: m_IsRunning(true), m_RenderContextCreateInfo(renderContextCreateInfo)
 {
 }
 
-Application::~Application()
+App::~App()
 {
 }
 
-void Application::Run()
+void App::Run()
 {
 	Init();
 	while (m_IsRunning)
@@ -31,7 +31,7 @@ void Application::Run()
 	}
 }
 
-void Application::Init()
+void App::Init()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		SDL_Log("failed to init sdl!");
@@ -56,7 +56,7 @@ void Application::Init()
 		scene->Init();
 }
 
-void Application::ProcessInput()
+void App::ProcessInput()
 {
 	SDL_Event event;
 	if (SDL_PollEvent(&event))
@@ -82,7 +82,7 @@ void Application::ProcessInput()
 	m_Scenes[m_CurSceneIndex]->ProcessInput();
 }
 
-void Application::Update()
+void App::Update()
 {
 	Input::PreUpdate();
 
@@ -99,7 +99,7 @@ void Application::Update()
 	Input::PostUpdate();
 }
 
-void Application::Draw()
+void App::Draw()
 {
 	m_Scenes[m_CurSceneIndex]->Render();
 
@@ -113,7 +113,7 @@ void Application::Draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void Application::CleanUp()
+void App::CleanUp()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

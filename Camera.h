@@ -1,13 +1,18 @@
 #pragma once
 #include "Vector3.h"
 
-struct Camera
+class Camera
 {
+public:
     Camera();
-    Camera(Vector3f position, Vector3f target, Vector3f up, float vfov, float aspect, float aperture, float focus_dist);
+    Camera(Vector3f position, Vector3f target, Vector3f up, float vfov, float aspect, float aperture, float focusDistance);
 
     void ProcessInput();
     void Update();
+
+    const Vector3f& GetLocalFrontAxis() const;
+    const Vector3f& GetLocalRightAxis() const;
+    const Vector3f& GetLocalUpAxis() const;
 
     Vector3f lower_left_corner;
     Vector3f horizontal;
@@ -17,14 +22,16 @@ struct Camera
     float vfov;
 
     float aspect;
-    Vector3f front;
-    Vector3f right;
-    Vector3f selfUp;
 
     float moveSpeed;
     float boostSpeed;
     float rotateSpeed;
+    float lensRadius;
+    float focusDistance;
+
+private:
     float yaw, pitch;
-    float lens_radius;
-    float focus_dist;
+    Vector3f front;
+    Vector3f right;
+    Vector3f up;
 };

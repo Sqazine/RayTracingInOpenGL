@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "App.h"
 
 #undef main
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	RenderContextCreateInfo renderInfo{};
 	renderInfo.windowCreateInfo=windowInfo;
 
-	auto app = std::make_unique<Application>(renderInfo);
+	auto app = std::make_unique<App>(renderInfo);
 
 	app->Run();
 	return 0;

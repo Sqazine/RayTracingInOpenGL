@@ -1,5 +1,5 @@
 #include "ScenePathTracingInOneWeekend.h"
-#include "Application.h"
+#include "App.h"
 #include "Input.h"
 #include "Timer.h"
 #include "Random.h"
@@ -116,9 +116,9 @@ void ScenePathTracingInOneWeekend::Render()
         m_PathTracingShaderProgram->SetUniformValue("camera.horizontal", m_Camera.horizontal);
         m_PathTracingShaderProgram->SetUniformValue("camera.vertical", m_Camera.vertical);
         m_PathTracingShaderProgram->SetUniformValue("camera.origin", m_Camera.position);
-        m_PathTracingShaderProgram->SetUniformValue("camera.lens_radius", m_Camera.lens_radius);
-        m_PathTracingShaderProgram->SetUniformValue("camera.right", m_Camera.right);
-        m_PathTracingShaderProgram->SetUniformValue("camera.up", m_Camera.selfUp);
+        m_PathTracingShaderProgram->SetUniformValue("camera.lensRadius", m_Camera.lensRadius);
+        m_PathTracingShaderProgram->SetUniformValue("camera.right", m_Camera.GetLocalRightAxis());
+        m_PathTracingShaderProgram->SetUniformValue("camera.up", m_Camera.GetLocalUpAxis());
 
         for (int i = 0; i < m_World.spheres.size(); ++i)
         {

@@ -3,8 +3,8 @@
 #include "Timer.h"
 #include <glm/glm.hpp>
 Camera::Camera() {}
-Camera::Camera(Vector3f position, Vector3f target, Vector3f up, float vfov, float aspect, float aperture, float focus_dist)
-    : position(position), target(target), vfov(vfov), aspect(aspect), moveSpeed(10.0f), rotateSpeed(10.0f), boostSpeed(100.0f), yaw(-90.0f), pitch(0.0f), focus_dist(focus_dist)
+Camera::Camera(Vector3f position, Vector3f target, Vector3f up, float vfov, float aspect, float aperture, float focusDistance)
+    : position(position), target(target), vfov(vfov), aspect(aspect), moveSpeed(10.0f), rotateSpeed(10.0f), boostSpeed(100.0f), yaw(-90.0f), pitch(0.0f), focusDistance(focusDistance)
 {
     float theta = Math::ToRadian(vfov);
     float h = std::atan(theta / 2.0f);
@@ -13,13 +13,13 @@ Camera::Camera(Vector3f position, Vector3f target, Vector3f up, float vfov, floa
 
     front = Vector3f::Normalize(target - position);
     right = Vector3f::Normalize(Vector3f::Cross(front, up));
-    selfUp = Vector3f::Normalize(Vector3f::Cross(right, front));
+    up = Vector3f::Normalize(Vector3f::Cross(right, front));
 
-    horizontal = focus_dist * viewport_width * right;
-    vertical = focus_dist * viewport_height * selfUp;
-    lower_left_corner = position - horizontal / 2.0f - vertical / 2.0f + front * focus_dist;
+    horizontal = focusDistance * viewport_width * right;
+    vertical = focusDistance * viewport_height * up;
+    lower_left_corner = position - horizontal / 2.0f - vertical / 2.0f + front * focusDistance;
 
-    lens_radius = aperture / 2.0f;
+    lensRadius = aperture / 2.0f;
 }
 
 void Camera::ProcessInput()
@@ -39,9 +39,9 @@ void Camera::ProcessInput()
     if (Input::GetKeyboard()->GetKeyState(SDL_SCANCODE_D) == ButtonState::HOLD)
         position += right * speed;
     if (Input::GetKeyboard()->GetKeyState(SDL_SCANCODE_E) == ButtonState::HOLD)
-        position += selfUp * speed;
+        position += up * speed;
     if (Input::GetKeyboard()->GetKeyState(SDL_SCANCODE_Q) == ButtonState::HOLD)
-        position -= selfUp * speed;
+        position -= up * speed;
 
     yaw += Input::GetMouse()->GetMousePos().x * rotateSpeed * Timer::GetDeltaTime();
     pitch -= Input::GetMouse()->GetMousePos().y * rotateSpeed * Timer::GetDeltaTime();
@@ -51,7 +51,7 @@ void Camera::ProcessInput()
 
     front = Vector3f::Normalize(front + Vector3f(cos(Math::ToRadian(pitch)) * cos(Math::ToRadian(yaw)), sin(Math::ToRadian(pitch)), cos(Math::ToRadian(pitch)) * sin(Math::ToRadian(yaw))));
     right = Vector3f::Normalize(Vector3f::Cross(front, Vector3f(0.0f, 1.0f, 0.0f)));
-    selfUp = Vector3f::Normalize(Vector3f::Cross(right, front));
+    up = Vector3f::Normalize(Vector3f::Cross(right, front));
 
     target = position + front;
 
@@ -66,7 +66,20 @@ void Camera::Update()
     float viewport_height = 2.0f * h;
     float viewport_width = aspect * viewport_height;
 
-    horizontal = focus_dist * viewport_width * right;
-    vertical = focus_dist * viewport_height * selfUp;
-    lower_left_corner = position - horizontal / 2.0f - vertical / 2.0f + front * focus_dist;
+    horizontal = focusDistance * viewport_width * right;
+    vertical = focusDistance * viewport_height * up;
+    lower_left_corner = position - horizontal / 2.0f - vertical / 2.0f + front * focusDistance;
+}
+
+const Vector3f &Camera::GetLocalFrontAxis() const
+{
+    return front;
+}
+const Vector3f &Camera::GetLocalRightAxis() const
+{
+    return right;
+}
+const Vector3f &Camera::GetLocalUpAxis() const
+{
+    return up;
 }

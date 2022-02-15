@@ -57,7 +57,7 @@ public:
 	static const std::shared_ptr<MouseState> &GetMouse();
 
 private:
-	friend class Application;
+	friend class App;
 	static void Init();
 	static void PreUpdate();
 	static void PostUpdate();

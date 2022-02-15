@@ -148,7 +148,7 @@ struct Camera
     vec3 front;
     vec3 right;
     vec3 up;
-    float lens_radius;
+    float lensRadius;
     vec3 lower_left_corner;
     vec3 horizontal;
     vec3 vertical;
@@ -178,7 +178,7 @@ vec3 RayGetPointAt(Ray r,float t)
 
 Ray CameraGetRay(Camera camera,vec2 uv)
 {
-    vec3 rd=camera.lens_radius*RandInUnitDisk();
+    vec3 rd=camera.lensRadius*RandInUnitDisk();
     vec3 offset=camera.right*rd.x+camera.up*rd.y;
     Ray ray=RayCtor(camera.origin+offset,camera.lower_left_corner+uv.x*camera.horizontal+uv.y*camera.vertical-camera.origin-offset);
     return ray;

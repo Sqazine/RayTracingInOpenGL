@@ -7,11 +7,11 @@
 #include "GL/Context.h"
 #include "Vector2.h"
 
-class Application
+class App
 {
 public:
-	Application(RenderContextCreateInfo renderContextCreateInfo);
-	~Application();
+	App(RenderContextCreateInfo renderContextCreateInfo);
+	~App();
 
 	void Run();
 

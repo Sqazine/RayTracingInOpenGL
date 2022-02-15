@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <memory>
 #include <vector>
-#include "Application.h"
+#include "App.h"
 #include "GL/Shader.h"
 #include "Input.h"
 #include "Timer.h"
