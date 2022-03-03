@@ -11,27 +11,7 @@
 #include "Material.h"
 #include "Camera.h"
 #include <glm/glm.hpp>
-
-struct Sphere
-{
-    Sphere(Vector3f o, float r, int matType, int matIdx) : origin(o), radius(r), materialType(matType), materialIdx(matIdx) {}
-    Vector3f origin;
-    float radius;
-    int materialType;
-    int materialIdx;
-};
-
-struct World
-{
-    World() {}
-    World(const std::vector<Sphere> spheres) : spheres(spheres) {}
-    void AddSphere(Sphere sphere)
-    {
-        spheres.emplace_back(sphere);
-    }
-    std::vector<Sphere> spheres;
-};
-
+#include "World.h"
 
 
 class ScenePathTracingInOneWeekend : public Scene
