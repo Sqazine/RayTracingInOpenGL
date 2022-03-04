@@ -6,8 +6,7 @@
 #include "GL/Shader.h"
 #include "Input.h"
 #include "Timer.h"
-#include "GL/Texture2D.h"
-#include "Mesh.h"
+#include "GL/Texture.h"
 #include "Material.h"
 #include "Camera.h"
 #include <glm/glm.hpp>
