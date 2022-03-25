@@ -6,7 +6,6 @@
 
 namespace GL
 {
-
 	enum RenderType
 	{
 		POINTS = GL_POINTS,
@@ -18,21 +17,21 @@ namespace GL
 		TRIANGLE_FAN = GL_TRIANGLE_FAN,
 	};
 
-	class Renderer
+	struct Renderer
 	{
 	public:
-		void ClearColorBuffer(float r, float g, float b, float a);
+		static void ClearColorBuffer(float r, float g, float b, float a);
 
-		void ClearDepthBuffer();
-		void ClearStencilBuffer();
-
-		void EnableDepthTest(bool active);
-		void EnableCullFace(bool active);
-
-		void Render(const std::shared_ptr<IndexBuffer> &ibo, RenderType mode);
-		void Render(uint32_t vertexCount, RenderType mode);
-		void RenderInstanced(const std::shared_ptr<IndexBuffer> &ibo, RenderType mode, uint32_t instanceCount);
-		void RenderInstanced(uint32_t vertexCount, RenderType mode, uint32_t instanceCount);
+		static void ClearDepthBuffer();
+		static void ClearStencilBuffer();
+ 
+		static void EnableDepthTest(bool active);
+		static void EnableCullFace(bool active);
+ 
+		static void Render(const std::shared_ptr<IndexBuffer> &ibo, RenderType mode);
+		static void Render(uint32_t vertexCount, RenderType mode);
+		static void RenderInstanced(const std::shared_ptr<IndexBuffer> &ibo, RenderType mode, uint32_t instanceCount);
+		static void RenderInstanced(uint32_t vertexCount, RenderType mode, uint32_t instanceCount);
 	};
 
 }

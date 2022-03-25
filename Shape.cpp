@@ -1,4 +1,5 @@
 #include "Shape.h"
+#include "GL/Renderer.h"
 #include <iostream>
 Mesh::Mesh()
 {
@@ -170,14 +171,10 @@ void Mesh::UnBind(int position, int normal, int texcoord, int tangent, int binor
 
 void Mesh::Draw()
 {
-    if (m_Indices.size() > 0)
-    {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer->GetID());
-        glDrawElements(GL_TRIANGLES, m_IndexBuffer->Size(), m_IndexBuffer->GetDataType(), nullptr);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    }
+    if(m_Indices.size()>0)
+        GL::Renderer::Render(m_IndexBuffer, GL::RenderType::TRIANGLES);
     else
-        glDrawArrays(GL_TRIANGLES, 0, m_Position.size());
+        GL::Renderer::Render(m_Position.size(), GL::RenderType::TRIANGLES);
 }
 
 void Mesh::CreateBuiltInQuad()
