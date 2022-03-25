@@ -37,22 +37,22 @@ Mesh::Mesh(const std::vector<Vector3f> &position,
            const std::vector<Vector3f> &binormal,
            const std::vector<Vector4f> &color,
            const std::vector<uint32_t> &indices)
-    : m_Position(position),
-      m_Normal(normal),
-      m_Texcoord(texcoord),
-      m_Tangent(tangent),
-      m_BiNormal(binormal),
-      m_Color(color),
-      m_Indices(indices)
+    : mPosition(position),
+      mNormal(normal),
+      mTexcoord(texcoord),
+      mTangent(tangent),
+      mBiNormal(binormal),
+      mColor(color),
+      mIndices(indices)
 {
-    m_VertexArray = std::make_shared<GL::VertexArray>();
-    m_PositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Position);
-    m_NormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Normal);
-    m_TexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(m_Texcoord);
-    m_TangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Tangent);
-    m_BiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_BiNormal);
-    m_ColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(m_Color);
-    m_IndexBuffer = std::make_shared<GL::IndexBuffer>(m_Indices);
+    mVertexArray = std::make_shared<GL::VertexArray>();
+    mPositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mPosition);
+    mNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mNormal);
+    mTexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(mTexcoord);
+    mTangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mTangent);
+    mBiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mBiNormal);
+    mColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(mColor);
+    mIndexBuffer = std::make_shared<GL::IndexBuffer>(mIndices);
 }
 
 Mesh::Mesh(const Mesh &other)
@@ -64,19 +64,19 @@ Mesh &Mesh::operator=(const Mesh &other)
     if (this == &other)
         return *this;
 
-    m_Position = other.m_Position;
-    m_Normal = other.m_Normal;
-    m_Texcoord = other.m_Texcoord;
-    m_Indices = other.m_Indices;
+    mPosition = other.mPosition;
+    mNormal = other.mNormal;
+    mTexcoord = other.mTexcoord;
+    mIndices = other.mIndices;
 
-    m_VertexArray = std::make_shared<GL::VertexArray>();
-    m_PositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
-    m_NormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
-    m_TexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>();
-    m_TangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
-    m_BiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
-    m_ColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>();
-    m_IndexBuffer = std::make_shared<GL::IndexBuffer>();
+    mVertexArray = std::make_shared<GL::VertexArray>();
+    mPositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
+    mNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
+    mTexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>();
+    mTangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
+    mBiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>();
+    mColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>();
+    mIndexBuffer = std::make_shared<GL::IndexBuffer>();
 
     UpdateBuffers();
     return *this;
@@ -88,108 +88,108 @@ Mesh::~Mesh()
 
 const std::vector<Vector3f> &Mesh::GetPosition() const
 {
-    return m_Position;
+    return mPosition;
 }
 
 const std::vector<Vector3f> &Mesh::GetNormal() const
 {
-    return m_Normal;
+    return mNormal;
 }
 const std::vector<Vector2f> &Mesh::GetTexcoord() const
 {
-    return m_Texcoord;
+    return mTexcoord;
 }
 const std::vector<Vector3f> &Mesh::GetTangent() const
 {
-    return m_Tangent;
+    return mTangent;
 }
 const std::vector<Vector3f> &Mesh::GetBiNormal() const
 {
-    return m_BiNormal;
+    return mBiNormal;
 }
 const std::vector<Vector4f> &Mesh::GetColor() const
 {
-    return m_Color;
+    return mColor;
 }
 
 const std::vector<uint32_t> &Mesh::GetIndex() const
 {
-    return m_Indices;
+    return mIndices;
 }
 
 void Mesh::UpdateBuffers()
 {
-    if (m_Position.size() > 0)
-        m_PositionBuffer->Set(m_Position);
-    if (m_Normal.size() > 0)
-        m_NormalBuffer->Set(m_Normal);
-    if (m_Texcoord.size() > 0)
-        m_TexcoordBuffer->Set(m_Texcoord);
-    if (m_Tangent.size() > 0)
-        m_TangentBuffer->Set(m_Tangent);
-    if (m_BiNormal.size() > 0)
-        m_BiNormalBuffer->Set(m_BiNormal);
-    if (m_Color.size() > 0)
-        m_ColorBuffer->Set(m_Color);
-    if (m_Indices.size() > 0)
-        m_IndexBuffer->Set(m_Indices);
+    if (mPosition.size() > 0)
+        mPositionBuffer->Set(mPosition);
+    if (mNormal.size() > 0)
+        mNormalBuffer->Set(mNormal);
+    if (mTexcoord.size() > 0)
+        mTexcoordBuffer->Set(mTexcoord);
+    if (mTangent.size() > 0)
+        mTangentBuffer->Set(mTangent);
+    if (mBiNormal.size() > 0)
+        mBiNormalBuffer->Set(mBiNormal);
+    if (mColor.size() > 0)
+        mColorBuffer->Set(mColor);
+    if (mIndices.size() > 0)
+        mIndexBuffer->Set(mIndices);
 }
 
 void Mesh::Bind(int position, int normal, int texcoord, int tangent, int binormal, int color)
 {
-    m_VertexArray->SetActive(true);
+    mVertexArray->SetActive(true);
     if (position >= 0)
-        m_PositionBuffer->BindTo(position);
+        mPositionBuffer->BindTo(position);
     if (normal >= 0)
-        m_NormalBuffer->BindTo(normal);
+        mNormalBuffer->BindTo(normal);
     if (texcoord >= 0)
-        m_TexcoordBuffer->BindTo(texcoord);
+        mTexcoordBuffer->BindTo(texcoord);
     if (tangent >= 0)
-        m_TangentBuffer->BindTo(tangent);
+        mTangentBuffer->BindTo(tangent);
     if (binormal >= 0)
-        m_BiNormalBuffer->BindTo(binormal);
+        mBiNormalBuffer->BindTo(binormal);
     if (color >= 0)
-        m_ColorBuffer->BindTo(color);
+        mColorBuffer->BindTo(color);
 }
 void Mesh::UnBind(int position, int normal, int texcoord, int tangent, int binormal, int color)
 {
     if (position >= 0)
-        m_PositionBuffer->UnBindFrom(position);
+        mPositionBuffer->UnBindFrom(position);
     if (normal >= 0)
-        m_NormalBuffer->UnBindFrom(normal);
+        mNormalBuffer->UnBindFrom(normal);
     if (texcoord >= 0)
-        m_TexcoordBuffer->UnBindFrom(texcoord);
+        mTexcoordBuffer->UnBindFrom(texcoord);
     if (tangent >= 0)
-        m_TangentBuffer->UnBindFrom(tangent);
+        mTangentBuffer->UnBindFrom(tangent);
     if (binormal >= 0)
-        m_BiNormalBuffer->UnBindFrom(binormal);
+        mBiNormalBuffer->UnBindFrom(binormal);
     if (color >= 0)
-        m_ColorBuffer->UnBindFrom(color);
+        mColorBuffer->UnBindFrom(color);
 
-    m_VertexArray->SetActive(false);
+    mVertexArray->SetActive(false);
 }
 
 void Mesh::Draw()
 {
-    if(m_Indices.size()>0)
-        GL::Renderer::Render(m_IndexBuffer, GL::RenderType::TRIANGLES);
+    if(mIndices.size()>0)
+        GL::Renderer::Render(mIndexBuffer, GL::RenderType::TRIANGLES);
     else
-        GL::Renderer::Render(m_Position.size(), GL::RenderType::TRIANGLES);
+        GL::Renderer::Render(mPosition.size(), GL::RenderType::TRIANGLES);
 }
 
 void Mesh::CreateBuiltInQuad()
 {
-    m_VertexArray = std::make_shared<GL::VertexArray>();
-    m_VertexArray->SetActive(true);
+    mVertexArray = std::make_shared<GL::VertexArray>();
+    mVertexArray->SetActive(true);
 
-    m_Position =
+    mPosition =
         {
             Vector3f(-1.0f, 1.0f, 0.0f),
             Vector3f(-1.0f, -1.0f, 0.0f),
             Vector3f(1.0f, -1.0f, 0.0f),
             Vector3f(1.0f, 1.0f, 0.0f)};
 
-    m_Normal =
+    mNormal =
         {
             Vector3f(0.0f, 0.0f, 1.0f),
             Vector3f(0.0f, 0.0f, 1.0f),
@@ -198,35 +198,35 @@ void Mesh::CreateBuiltInQuad()
 
         };
 
-    m_Texcoord =
+    mTexcoord =
         {
             Vector2f(0.0f, 1.0f),
             Vector2f(0.0f, 0.0f),
             Vector2f(1.0f, 0.0f),
             Vector2f(1.0f, 1.0f)};
 
-    m_Tangent.resize(4, Vector3f::ZERO);
-    m_BiNormal.resize(4, Vector3f::ZERO);
-    m_Color.resize(4, Vector4f(1.0f));
+    mTangent.resize(4, Vector3f::ZERO);
+    mBiNormal.resize(4, Vector3f::ZERO);
+    mColor.resize(4, Vector4f(1.0f));
 
-    m_PositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Position);
-    m_NormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Normal);
-    m_TexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(m_Texcoord);
-    m_TangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Tangent);
-    m_BiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_BiNormal);
-    m_ColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(m_Color);
+    mPositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mPosition);
+    mNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mNormal);
+    mTexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(mTexcoord);
+    mTangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mTangent);
+    mBiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mBiNormal);
+    mColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(mColor);
 
-    m_Indices =
+    mIndices =
         {
             0, 1, 2,
             0, 2, 3};
-    m_IndexBuffer = std::make_shared<GL::IndexBuffer>(m_Indices);
+    mIndexBuffer = std::make_shared<GL::IndexBuffer>(mIndices);
 }
 
 void Mesh::CreateBuiltInSphere()
 {
-    m_VertexArray = std::make_shared<GL::VertexArray>();
-    m_VertexArray->SetActive(true);
+    mVertexArray = std::make_shared<GL::VertexArray>();
+    mVertexArray->SetActive(true);
 
     float latitudeBands = 20.0f;
     float longitudeBands = 20.0f;
@@ -246,14 +246,14 @@ void Mesh::CreateBuiltInSphere()
 
             Vector3f tmp = Vector3f(cosPhi * sinTheta, cosTheta, sinPhi * sinTheta);
 
-            m_Position.emplace_back(tmp * radius);
-            m_Normal.emplace_back(tmp);
-            m_Texcoord.emplace_back(Vector2f((longNumber / longitudeBands), (latNumber / latitudeBands)));
+            mPosition.emplace_back(tmp * radius);
+            mNormal.emplace_back(tmp);
+            mTexcoord.emplace_back(Vector2f((longNumber / longitudeBands), (latNumber / latitudeBands)));
 
             Vector3f tangent = Vector3f(cosPhi, 0.0f, -sinPhi);
 
-            m_Tangent.emplace_back(tangent);
-            m_BiNormal.emplace_back(Vector3f::Cross(tmp, tangent));
+            mTangent.emplace_back(tangent);
+            mBiNormal.emplace_back(Vector3f::Cross(tmp, tangent));
         }
     }
 
@@ -264,34 +264,34 @@ void Mesh::CreateBuiltInSphere()
             uint32_t first = (latNumber * (longitudeBands + 1)) + longNumber;
             uint32_t second = first + longitudeBands + 1;
 
-            m_Indices.emplace_back(first);
-            m_Indices.emplace_back(second);
-            m_Indices.emplace_back(first + 1);
+            mIndices.emplace_back(first);
+            mIndices.emplace_back(second);
+            mIndices.emplace_back(first + 1);
 
-            m_Indices.emplace_back(second);
-            m_Indices.emplace_back(second + 1);
-            m_Indices.emplace_back(first + 1);
+            mIndices.emplace_back(second);
+            mIndices.emplace_back(second + 1);
+            mIndices.emplace_back(first + 1);
         }
     }
 
-    m_Color.resize(m_Position.size(), Vector4f(1.0f));
+    mColor.resize(mPosition.size(), Vector4f(1.0f));
 
-    m_PositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Position);
-    m_NormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Normal);
-    m_TexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(m_Texcoord);
-    m_TangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Tangent);
-    m_BiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_BiNormal);
-    m_ColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(m_Color);
+    mPositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mPosition);
+    mNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mNormal);
+    mTexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(mTexcoord);
+    mTangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mTangent);
+    mBiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mBiNormal);
+    mColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(mColor);
 
-    m_IndexBuffer = std::make_shared<GL::IndexBuffer>(m_Indices);
+    mIndexBuffer = std::make_shared<GL::IndexBuffer>(mIndices);
 }
 
 void Mesh::CreateBuiltInCube()
 {
-    m_VertexArray = std::make_shared<GL::VertexArray>();
-    m_VertexArray->SetActive(true);
+    mVertexArray = std::make_shared<GL::VertexArray>();
+    mVertexArray->SetActive(true);
 
-    m_Position =
+    mPosition =
         {
             //+z
             Vector3f(-0.5f, 0.5f, 0.5f),
@@ -325,7 +325,7 @@ void Mesh::CreateBuiltInCube()
             Vector3f(0.5f, -0.5f, 0.5f),
         };
 
-    m_Normal =
+    mNormal =
         {
             //+z
             Vector3f(0.0f, 0.0f, 1.0f),
@@ -359,7 +359,7 @@ void Mesh::CreateBuiltInCube()
             Vector3f(0.0f, -1.0f, 0.0f),
         };
 
-    m_Texcoord =
+    mTexcoord =
         {
             //+z
             Vector2f(0.0f, 1.0f),
@@ -393,7 +393,7 @@ void Mesh::CreateBuiltInCube()
             Vector2f(1.0f, 1.0f),
         };
 
-    m_Tangent =
+    mTangent =
         {
             //+z
             Vector3f(1.0f, 0.0f, 0.0f),
@@ -427,7 +427,7 @@ void Mesh::CreateBuiltInCube()
             Vector3f(1.0f, 0.0f, 0.0f),
         };
 
-    m_BiNormal = {
+    mBiNormal = {
         //+z
         Vector3f(0.0f, 1.0f, 0.0f),
         Vector3f(0.0f, 1.0f, 0.0f),
@@ -460,7 +460,7 @@ void Mesh::CreateBuiltInCube()
         Vector3f(0.0f, 0.0f, 1.0f),
     };
 
-    m_Color.resize(m_Position.size(), Vector4f(1.0f));
+    mColor.resize(mPosition.size(), Vector4f(1.0f));
 
     std::vector<uint32_t> indices =
         {
@@ -507,14 +507,14 @@ void Mesh::CreateBuiltInCube()
             23,
         };
 
-    m_PositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Position);
-    m_NormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Normal);
-    m_TexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(m_Texcoord);
-    m_TangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_Tangent);
-    m_BiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(m_BiNormal);
-    m_ColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(m_Color);
+    mPositionBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mPosition);
+    mNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mNormal);
+    mTexcoordBuffer = std::make_shared<GL::VertexBuffer<Vector2f>>(mTexcoord);
+    mTangentBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mTangent);
+    mBiNormalBuffer = std::make_shared<GL::VertexBuffer<Vector3f>>(mBiNormal);
+    mColorBuffer = std::make_shared<GL::VertexBuffer<Vector4f>>(mColor);
 
-    m_IndexBuffer = std::make_shared<GL::IndexBuffer>(m_Indices);
+    mIndexBuffer = std::make_shared<GL::IndexBuffer>(mIndices);
 }
 void Mesh::CreateBuiltInCapsule()
 {

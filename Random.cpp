@@ -1,17 +1,17 @@
 #include "Random.h"
 
-std::mt19937 Random::m_RandomNumGenerator;
+std::mt19937 Random::mRandomNumGenerator;
 
 void Random::Init()
 {
 	std::random_device rd;
-	m_RandomNumGenerator.seed(rd());
+	mRandomNumGenerator.seed(rd());
 }
 
 float Random::GetFloat(float min, float max)
 {
 	std::uniform_real_distribution<float> dis(min, max);
-	return dis(m_RandomNumGenerator);
+	return dis(mRandomNumGenerator);
 }
 
 float Random::GetFloat01()
@@ -22,5 +22,5 @@ float Random::GetFloat01()
 int Random::GetInt(int min, int max)
 {
 	std::uniform_int_distribution<int> dis(min, max);
-	return dis(m_RandomNumGenerator);
+	return dis(mRandomNumGenerator);
 }

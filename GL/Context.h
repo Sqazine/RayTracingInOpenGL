@@ -41,10 +41,10 @@ public:
 private:
     Context();
 
-    static RenderContextCreateInfo m_RenderCreateInfo;
+    static RenderContextCreateInfo mRenderCreateInfo;
 
-    static SDL_GLContext m_ContextHandle;
+    static SDL_GLContext mContextHandle;
 
-    static SDL_Window *m_WindowHandle;
+    static SDL_Window *mWindowHandle;
 };
 }

@@ -71,20 +71,20 @@ protected:
     void CreateBuiltInCapsule();
     void CreateBuiltInCylinder();
 
-    std::vector<Vector3f> m_Position;
-    std::vector<Vector3f> m_Normal;
-    std::vector<Vector2f> m_Texcoord;
-    std::vector<Vector3f> m_Tangent;
-    std::vector<Vector3f> m_BiNormal;
-    std::vector<Vector4f> m_Color;
-    std::vector<uint32_t> m_Indices;
+    std::vector<Vector3f> mPosition;
+    std::vector<Vector3f> mNormal;
+    std::vector<Vector2f> mTexcoord;
+    std::vector<Vector3f> mTangent;
+    std::vector<Vector3f> mBiNormal;
+    std::vector<Vector4f> mColor;
+    std::vector<uint32_t> mIndices;
 
-    std::shared_ptr<GL::VertexArray> m_VertexArray;
-    std::shared_ptr<GL::VertexBuffer<Vector3f>> m_PositionBuffer;
-    std::shared_ptr<GL::VertexBuffer<Vector3f>> m_NormalBuffer;
-    std::shared_ptr<GL::VertexBuffer<Vector2f>> m_TexcoordBuffer;
-    std::shared_ptr<GL::VertexBuffer<Vector3f>> m_TangentBuffer;
-    std::shared_ptr<GL::VertexBuffer<Vector3f>> m_BiNormalBuffer;
-    std::shared_ptr<GL::VertexBuffer<Vector4f>> m_ColorBuffer;
-    std::shared_ptr<GL::IndexBuffer> m_IndexBuffer;
+    std::shared_ptr<GL::VertexArray> mVertexArray;
+    std::shared_ptr<GL::VertexBuffer<Vector3f>> mPositionBuffer;
+    std::shared_ptr<GL::VertexBuffer<Vector3f>> mNormalBuffer;
+    std::shared_ptr<GL::VertexBuffer<Vector2f>> mTexcoordBuffer;
+    std::shared_ptr<GL::VertexBuffer<Vector3f>> mTangentBuffer;
+    std::shared_ptr<GL::VertexBuffer<Vector3f>> mBiNormalBuffer;
+    std::shared_ptr<GL::VertexBuffer<Vector4f>> mColorBuffer;
+    std::shared_ptr<GL::IndexBuffer> mIndexBuffer;
 };

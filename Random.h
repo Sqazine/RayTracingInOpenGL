@@ -19,7 +19,7 @@ public:
 		template<typename T>
 	Vector3<T> GetVector3fInUnitDisk();
 private:
-	static std::mt19937 m_RandomNumGenerator;
+	static std::mt19937 mRandomNumGenerator;
 };
 template<typename T>
 Vector2<T> Random::GetVector2(const Vector2<T>& min, const Vector2<T>& max)

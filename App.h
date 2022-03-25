@@ -22,13 +22,13 @@ private:
 	void Draw();
 	void CleanUp();
 
-	RenderContextCreateInfo m_RenderContextCreateInfo;
+	RenderContextCreateInfo mRenderContextCreateInfo;
 
-	bool m_IsRunning;
+	bool mIsRunning;
 
-	std::vector<std::shared_ptr<Scene>> m_Scenes;
+	std::vector<std::shared_ptr<Scene>> mScenes;
 
-	int m_CurSceneIndex = 0;
-	bool m_IsSceneSelectedChanged = false;
-	int m_PreSceneNum = 0;
+	int mCurSceneIndex = 0;
+	bool mIsSceneSelectedChanged = false;
+	int mPreSceneNum = 0;
 };

@@ -70,7 +70,7 @@
         "stop_token": "cpp",
         "streambuf": "cpp",
         "strstream": "cpp",
-        "system_error": "cpp",
+        "systemerror": "cpp",
         "thread": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",

@@ -22,8 +22,8 @@ public:
 
 private:
 	friend class Input;
-	const uint8_t *m_CurKeyState;
-	uint8_t *m_PreKeyState;
+	const uint8_t *mCurKeyState;
+	uint8_t *mPreKeyState;
 };
 
 class MouseState
@@ -42,12 +42,12 @@ public:
 
 private:
 	friend class Input;
-	bool m_IsRelative;
-	Vector2i32 m_CurPos;
-	Vector2i32 m_PrePos;
-	Vector2i32 m_MouseScrollWheel;
-	uint32_t m_CurButtons;
-	uint32_t m_PreButtons;
+	bool mIsRelative;
+	Vector2i32 mCurPos;
+	Vector2i32 mPrePos;
+	Vector2i32 mMouseScrollWheel;
+	uint32_t mCurButtons;
+	uint32_t mPreButtons;
 };
 
 class Input
@@ -64,6 +64,6 @@ private:
 	static void ProcessInput(SDL_Event event);
 
 private:
-	static std::shared_ptr<KeyboardState> m_KeyboardState;
-	static std::shared_ptr<MouseState> m_MouseState;
+	static std::shared_ptr<KeyboardState> mKeyboardState;
+	static std::shared_ptr<MouseState> mMouseState;
 };

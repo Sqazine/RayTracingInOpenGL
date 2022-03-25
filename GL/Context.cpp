@@ -4,11 +4,11 @@
 namespace GL
 {
 
-	RenderContextCreateInfo Context::m_RenderCreateInfo;
+	RenderContextCreateInfo Context::mRenderCreateInfo;
 
-	SDL_GLContext Context::m_ContextHandle;
+	SDL_GLContext Context::mContextHandle;
 
-	SDL_Window *Context::m_WindowHandle = nullptr;
+	SDL_Window *Context::mWindowHandle = nullptr;
 
 	Context::Context()
 	{
@@ -20,13 +20,13 @@ namespace GL
 
 	void Context::CreateContext(const RenderContextCreateInfo &config)
 	{
-		m_RenderCreateInfo = config;
+		mRenderCreateInfo = config;
 
 		uint32_t windowFlag = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_OPENGL;
 		if (config.windowCreateInfo.resizeable)
 			windowFlag |= SDL_WINDOW_RESIZABLE;
 
-		m_WindowHandle = SDL_CreateWindow(config.windowCreateInfo.title.c_str(),
+		mWindowHandle = SDL_CreateWindow(config.windowCreateInfo.title.c_str(),
 										  SDL_WINDOWPOS_CENTERED,
 										  SDL_WINDOWPOS_CENTERED,
 										  config.windowCreateInfo.extent.x,
@@ -39,21 +39,21 @@ namespace GL
 		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-		if (m_RenderCreateInfo.useDoubleBuffer)
+		if (mRenderCreateInfo.useDoubleBuffer)
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		else
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
 
-		m_ContextHandle = SDL_GL_CreateContext(m_WindowHandle);
+		mContextHandle = SDL_GL_CreateContext(mWindowHandle);
 
-		if (!m_ContextHandle)
+		if (!mContextHandle)
 			SDL_Log("failed to create SDL opengl context:%s", SDL_GetError());
 
 		if (!gladLoadGL())
 			SDL_Log("failed to load GLAD:%s", glGetError());
 
 		//VSync
-		int success = SDL_GL_SetSwapInterval((m_RenderCreateInfo.useVSync ? 1 : 0));
+		int success = SDL_GL_SetSwapInterval((mRenderCreateInfo.useVSync ? 1 : 0));
 		if (success == -1)
 			SDL_Log("failed to open/close opengl VSync:%s", SDL_GetError());
 		{
@@ -67,27 +67,27 @@ namespace GL
 
 	void Context::DestroyContext()
 	{
-		SDL_GL_DeleteContext(m_ContextHandle);
+		SDL_GL_DeleteContext(mContextHandle);
 	}
 
 	void Context::SwapWindow()
 	{
-		SDL_GL_SwapWindow(m_WindowHandle);
+		SDL_GL_SwapWindow(mWindowHandle);
 	}
 
 	SDL_GLContext Context::GetContextHandle()
 	{
-		return m_ContextHandle;
+		return mContextHandle;
 	}
 
 	SDL_Window *Context::GetWindowHandle()
 	{
-		return m_WindowHandle;
+		return mWindowHandle;
 	}
 
 	Vector2u32 Context::GetWindowExtent()
 	{
-		return m_RenderCreateInfo.windowCreateInfo.extent;
+		return mRenderCreateInfo.windowCreateInfo.extent;
 	}
 
 	bool Context::IsSupportExtension(std::string_view extensionName)

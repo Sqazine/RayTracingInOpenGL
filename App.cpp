@@ -9,7 +9,7 @@
 #include "ScenePathTracingInOneWeekend.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
-	: m_IsRunning(true), m_RenderContextCreateInfo(renderContextCreateInfo)
+	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
 {
 }
 
@@ -20,7 +20,7 @@ App::~App()
 void App::Run()
 {
 	Init();
-	while (m_IsRunning)
+	while (mIsRunning)
 	{
 		Timer::Update(60);
 
@@ -36,7 +36,7 @@ void App::Init()
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		SDL_Log("failed to init sdl!");
 
-	GL::Context::CreateContext(m_RenderContextCreateInfo);
+	GL::Context::CreateContext(mRenderContextCreateInfo);
 
 	Input::Init();
 
@@ -50,9 +50,9 @@ void App::Init()
 
 	Timer::Init();
 
-	m_Scenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
+	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
 
-	for (const auto &scene : m_Scenes)
+	for (const auto &scene : mScenes)
 		scene->Init();
 }
 
@@ -64,11 +64,11 @@ void App::ProcessInput()
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			m_IsRunning = false;
+			mIsRunning = false;
 		}
 	}
 	if (Input::GetKeyboard()->GetKeyState(SDL_SCANCODE_ESCAPE) == ButtonState::PRESS)
-		m_IsRunning = false;
+		mIsRunning = false;
 
 	Input::ProcessInput(event);
 
@@ -79,35 +79,35 @@ void App::ProcessInput()
 		else
 			Input::GetMouse()->SetReleativeMode(true);
 	}
-	m_Scenes[m_CurSceneIndex]->ProcessInput();
+	mScenes[mCurSceneIndex]->ProcessInput();
 }
 
 void App::Update()
 {
 	Input::PreUpdate();
 
-	m_Scenes[m_CurSceneIndex]->Update();
+	mScenes[mCurSceneIndex]->Update();
 
-	if (m_CurSceneIndex != m_PreSceneNum)
+	if (mCurSceneIndex != mPreSceneNum)
 	{
-		m_IsSceneSelectedChanged = true;
-		m_PreSceneNum = m_CurSceneIndex;
+		mIsSceneSelectedChanged = true;
+		mPreSceneNum = mCurSceneIndex;
 	}
 	else
-		m_IsSceneSelectedChanged = false;
+		mIsSceneSelectedChanged = false;
 
 	Input::PostUpdate();
 }
 
 void App::Draw()
 {
-	m_Scenes[m_CurSceneIndex]->Render();
+	mScenes[mCurSceneIndex]->Render();
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(GL::Context::GetWindowHandle());
 	ImGui::NewFrame();
 
-	m_Scenes[m_CurSceneIndex]->RenderUI();
+	mScenes[mCurSceneIndex]->RenderUI();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

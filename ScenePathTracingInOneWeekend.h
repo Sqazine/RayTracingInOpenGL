@@ -26,28 +26,28 @@ public:
     virtual void RenderUI() override;
 
 private:
-    bool m_IsFirstFrame;
+    bool mIsFirstFrame;
 
-    std::shared_ptr<GL::ShaderProgram> m_PathTracingShaderProgram;
-    std::shared_ptr<GL::ShaderProgram> m_BlendShaderProgram;
-    std::shared_ptr<GL::ShaderProgram> m_PostEffectShaderProgram;
+    std::shared_ptr<GL::ShaderProgram> mPathTracingShaderProgram;
+    std::shared_ptr<GL::ShaderProgram> mBlendShaderProgram;
+    std::shared_ptr<GL::ShaderProgram> mPostEffectShaderProgram;
 
-    Mesh m_Quad;
+    Mesh mQuad;
 
-    World m_World;
-    std::vector<Lambertian> m_LambertianMaterials;
-    std::vector<HalfLambertian> m_HalfLambertianMaterials;
-    std::vector<Metal> m_MetalMaterials;
-    std::vector<Dielectric> m_DielectricMaterials;
-    Camera m_Camera;
+    World mWorld;
+    std::vector<Lambertian> mLambertianMaterials;
+    std::vector<HalfLambertian> mHalfLambertianMaterials;
+    std::vector<Metal> mMetalMaterials;
+    std::vector<Dielectric> mDielectricMaterials;
+    Camera mCamera;
 
-    uint32_t m_PathTracingFBO;
-    std::shared_ptr<GL::Texture2D> m_PathTracingTexture;
+    uint32_t mPathTracingFBO;
+    std::shared_ptr<GL::Texture2D> mPathTracingTexture;
 
-    uint32_t m_PathTracingBlendFBO;
-    std::shared_ptr<GL::Texture2D> m_PathTracingBlendTexture;
+    uint32_t mPathTracingBlendFBO;
+    std::shared_ptr<GL::Texture2D> mPathTracingBlendTexture;
 
-    std::string m_PostEffectGUIHint;
+    std::string mPostEffectGUIHint;
 
 
     int32_t spp;

@@ -62,7 +62,7 @@ namespace GL
 		const Texture2DCreateInfo& GetCreateInfo();
 	protected:
 
-		uint32_t m_TextureID;
-		Texture2DCreateInfo m_Info;
+		uint32_t mTextureID;
+		Texture2DCreateInfo mInfo;
 	};
 }

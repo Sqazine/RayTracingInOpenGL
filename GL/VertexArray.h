@@ -13,12 +13,12 @@ namespace GL
         void SetActive(bool isActive);
 
     private:
-        uint32_t m_VertexArrayID;
+        uint32_t mVertexArrayID;
     };
 
     inline VertexArray::VertexArray()
     {
-        glGenVertexArrays(1, &m_VertexArrayID);
+        glGenVertexArrays(1, &mVertexArrayID);
     }
 
     inline VertexArray::~VertexArray()
@@ -28,7 +28,7 @@ namespace GL
     inline void VertexArray::SetActive(bool isActive)
     {
         if (isActive)
-            glBindVertexArray(m_VertexArrayID);
+            glBindVertexArray(mVertexArrayID);
         else
             glBindVertexArray(0);
     }

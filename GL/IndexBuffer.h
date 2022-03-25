@@ -30,52 +30,52 @@ namespace GL
 
         uint32_t DataStrToGLDataType(std::string_view dataStr);
 
-        uint32_t m_IndexBufferID;
-        uint32_t m_Size;
-        uint32_t m_DataType;
+        uint32_t mIndexBufferID;
+        uint32_t mSize;
+        uint32_t mDataType;
     };
 
     template <typename T>
     inline IndexBuffer::IndexBuffer(const std::vector<T> &input)
     {
-        glGenBuffers(1, &m_IndexBufferID);
+        glGenBuffers(1, &mIndexBufferID);
         Set(input);
     }
 
     template <typename T>
     inline void IndexBuffer::Set(const std::vector<T> &input)
     {
-        m_DataType = DataStrToGLDataType(typeid(T).name());
-        m_Size = input.size();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Size * sizeof(T), input.data(), GL_STATIC_DRAW);
+        mDataType = DataStrToGLDataType(typeid(T).name());
+        mSize = input.size();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBufferID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mSize * sizeof(T), input.data(), GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     inline IndexBuffer::IndexBuffer()
-        : m_Size(0)
+        : mSize(0)
     {
-        glGenBuffers(1, &m_IndexBufferID);
+        glGenBuffers(1, &mIndexBufferID);
     }
 
     inline IndexBuffer::~IndexBuffer()
     {
-        glDeleteBuffers(1, &m_IndexBufferID);
+        glDeleteBuffers(1, &mIndexBufferID);
     }
 
     inline uint32_t IndexBuffer::Size() const
     {
-        return m_Size;
+        return mSize;
     }
 
     inline uint32_t IndexBuffer::GetDataType() const
     {
-        return m_DataType;
+        return mDataType;
     }
 
     inline uint32_t IndexBuffer::GetID() const
     {
-        return m_IndexBufferID;
+        return mIndexBufferID;
     }
 
     inline uint32_t IndexBuffer::DataStrToGLDataType(std::string_view dataStr)

@@ -11,8 +11,8 @@ public:
 private:
 	Timer();
 
-	static uint32_t m_StartTick;
-	static uint32_t m_CurTick;
-	static uint32_t m_LastTick;
-	static float m_DeltaTime;
+	static uint32_t mStartTick;
+	static uint32_t mCurTick;
+	static uint32_t mLastTick;
+	static float mDeltaTime;
 };
