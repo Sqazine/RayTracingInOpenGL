@@ -14,25 +14,27 @@ The OpenGL implementation of Peter Shirley's ray tracing in one weekend series o
 <br />
 
 # How to build
-## 1. install C++ 17 compiler
-## 2. install CMake(version >=3.10)
-## 3. clone Microsoft's vcpkg C++ package manager(https://github.com/Microsoft/vcpkg)
-## 4. create environment variables:VCPKG_ROOT=(vcpkg repo's root directory)
-## 5. create environment variables:VCPKG_DEFAULT_TRIPLET=(current target machine's platform and instruction set architecture)   (See also:https://vcpkg.io/en/docs/users/triplets.html)
+1. install C++ 17 compiler
+2. install CMake(version >=3.10)
+3. clone Microsoft's vcpkg C++ package manager(https://github.com/Microsoft/vcpkg)
+4. create environment variables:VCPKG_ROOT=(vcpkg repo's root directory)
+5. create environment variables:VCPKG_DEFAULT_TRIPLET=(current target machine's platform and instruction set architecture)   (See also:https://vcpkg.io/en/docs/users/triplets.html)
+6.install SDL2:(vcpkg install sdl2)
+7.install glad:(vcpkg install glad)
+8.install imgui:(vcpkg install imgui[sdl2-binding,opengl3-binding])
 
-## 6.install SDL2:(vcpkg install sdl2)
-## 7.install glad:(vcpkg install glad)
-## 8.install imgui:(vcpkg install imgui[sdl2-binding,opengl3-binding])
-
-# 2 Screenshot
-## No post effect
-![](/imgs/Snipaste_2022-01-22_14-06-29.png)
-## Sharpen
-![](/imgs/Snipaste_2022-01-22_14-06-54.png)
-## Blur
-![](/imgs/Snipaste_2022-01-22_14-07-02.png)
-## Edge detected
-![](/imgs/Snipaste_2022-01-22_14-07-10.png)
+# Screenshots
+## 1.Creating an Image
+![](/imgs/Snipaste_2022-03-28_03-51-57.png)
+## 2.Materials and post-effects
+No post effect
+![](/imgs/Snipaste_2022-03-28_03-53-03.png)
+Sharpen
+![](/imgs/Snipaste_2022-03-28_03-53-15.png)
+Blur
+![](/imgs/Snipaste_2022-03-28_03-53-22.png)
+Edge detected
+![](/imgs/Snipaste_2022-03-28_03-53-28.png)
 
 <!-- links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Sqazine/RayTracingInOpenGL.svg?style=flat-square
