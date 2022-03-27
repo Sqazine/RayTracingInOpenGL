@@ -19,9 +19,9 @@ The OpenGL implementation of Peter Shirley's ray tracing in one weekend series o
 3. clone Microsoft's vcpkg C++ package manager(https://github.com/Microsoft/vcpkg)
 4. create environment variables:VCPKG_ROOT=(vcpkg repo's root directory)
 5. create environment variables:VCPKG_DEFAULT_TRIPLET=(current target machine's platform and instruction set architecture)   (See also:https://vcpkg.io/en/docs/users/triplets.html)
-6.install SDL2:(vcpkg install sdl2)
-7.install glad:(vcpkg install glad)
-8.install imgui:(vcpkg install imgui[sdl2-binding,opengl3-binding])
+6. install SDL2:(vcpkg install sdl2)
+7. install glad:(vcpkg install glad)
+8. install imgui:(vcpkg install imgui[sdl2-binding,opengl3-binding])
 
 # Screenshots
 ## 1.Creating an Image
