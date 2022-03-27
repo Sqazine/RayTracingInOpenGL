@@ -208,8 +208,6 @@ void ScenePathTracingInOneWeekend::RenderUI()
 {
     ImGui::Begin("Setting");
 
-    ImGui::Text("FPS:%.1f(%.3fms/frame)", ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
-
     ImGui::SliderInt("spp", &spp, 1, 20);
     ImGui::SliderInt("depth", &depth, 1, 20);
     ImGui::SliderFloat("mix value", &mixValue, 0.0, 1.0);

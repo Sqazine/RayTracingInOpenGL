@@ -15,6 +15,7 @@ struct RenderContextCreateInfo
     WindowCreateInfo windowCreateInfo;
     bool useVSync = false;
     bool useDoubleBuffer = true;
+    bool frameRate=60;
 };
 
 namespace GL

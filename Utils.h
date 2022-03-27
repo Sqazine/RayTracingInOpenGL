@@ -8,7 +8,7 @@
 
 namespace Utils
 {
-    std::string LoadText(const std::string &path)
+    inline std::string LoadText(const std::string &path)
     {
         std::ifstream file;
         file.open(path);

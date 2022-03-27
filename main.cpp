@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 
 	RenderContextCreateInfo renderInfo{};
 	renderInfo.windowCreateInfo=windowInfo;
+	renderInfo.frameRate=0;//0 means no limition,see Timer.h/.cpp
 
 	auto app = std::make_unique<App>(renderInfo);
 

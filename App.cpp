@@ -7,6 +7,7 @@
 #include "Timer.h"
 #include "Random.h"
 #include "ScenePathTracingInOneWeekend.h"
+#include "SceneCreatingAnImage.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
@@ -22,7 +23,7 @@ void App::Run()
 	Init();
 	while (mIsRunning)
 	{
-		Timer::Update(60);
+		Timer::Update(mRenderContextCreateInfo.frameRate);
 
 		ProcessInput();
 		Update();
@@ -50,6 +51,7 @@ void App::Init()
 
 	Timer::Init();
 
+	mScenes.emplace_back(std::make_shared<SceneCreatingAnImage>());
 	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
 
 	for (const auto &scene : mScenes)
@@ -106,6 +108,16 @@ void App::Draw()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(GL::Context::GetWindowHandle());
 	ImGui::NewFrame();
+
+	ImGui::Begin("Scene Selector");
+
+	ImGui::Text("Display frequency:%.1fFPS(%.3fms/frame)", ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
+
+	ImGui::RadioButton("SceneCreatingAnImage", &mCurSceneIndex, 0);
+	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 1);
+
+	ImGui::End();
+
 
 	mScenes[mCurSceneIndex]->RenderUI();
 
