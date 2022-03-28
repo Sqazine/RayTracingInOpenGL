@@ -30,6 +30,9 @@ The OpenGL implementation of Peter Shirley's ray tracing in one weekend series o
 ![](/imgs/Snipaste_2022-03-28_18-28-18.png)
 ## 3.Add a sphere
 ![](/imgs/Snipaste_2022-03-28_18-28-23.png)
+## 4.Surface normal
+![](/imgs/Snipaste_2022-03-28_22-18-33.png)
+
 
 ## 4.Materials and post-effects
 No post effect
