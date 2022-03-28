@@ -26,7 +26,12 @@ The OpenGL implementation of Peter Shirley's ray tracing in one weekend series o
 # Screenshots
 ## 1.Creating an Image
 ![](/imgs/Snipaste_2022-03-28_03-51-57.png)
-## 2.Materials and post-effects
+## 2.Add background
+![](/imgs/Snipaste_2022-03-28_18-28-18.png)
+## 3.Add a sphere
+![](/imgs/Snipaste_2022-03-28_18-28-23.png)
+
+## 4.Materials and post-effects
 No post effect
 ![](/imgs/Snipaste_2022-03-28_03-53-03.png)
 Sharpen
