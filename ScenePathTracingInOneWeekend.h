@@ -32,8 +32,6 @@ private:
     std::shared_ptr<GL::ShaderProgram> mBlendShaderProgram;
     std::shared_ptr<GL::ShaderProgram> mPostEffectShaderProgram;
 
-    Mesh mQuad;
-
     World mWorld;
     std::vector<Lambertian> mLambertianMaterials;
     std::vector<HalfLambertian> mHalfLambertianMaterials;

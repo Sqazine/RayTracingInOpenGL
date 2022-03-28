@@ -25,7 +25,6 @@ ScenePathTracingInOneWeekend::~ScenePathTracingInOneWeekend()
 
 void ScenePathTracingInOneWeekend::Init()
 {
-    mQuad = Mesh(MeshType::QUAD);
 
     auto vertShader = GL::ShaderModule(GL::ShaderModuleType::VERTEX, Utils::LoadText(std::string(SHADER_DIR) + "vertex.vert"));
     auto rtFragShader = GL::ShaderModule(GL::ShaderModuleType::FRAGMENT, Utils::LoadText(std::string(SHADER_DIR) + "ray-tracing-in-one-weekend.frag"));
@@ -146,9 +145,9 @@ void ScenePathTracingInOneWeekend::Render()
         }
         mPathTracingShaderProgram->SetUniformValue("spp", spp);
         mPathTracingShaderProgram->SetUniformValue("traceDepth", depth);
-        mQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
-        mQuad.Draw();
-        mQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Draw();
+        mScreenSpaceQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
         mPathTracingShaderProgram->SetActive(false);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -177,9 +176,9 @@ void ScenePathTracingInOneWeekend::Render()
 
         mBlendShaderProgram->SetUniformValue("mixValue", tmpMixValue);
 
-        mQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
-        mQuad.Draw();
-        mQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Draw();
+        mScreenSpaceQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
 
         mBlendShaderProgram->SetActive(false);
 
@@ -196,9 +195,9 @@ void ScenePathTracingInOneWeekend::Render()
         mPostEffectShaderProgram->SetUniformValue("postEffectType", currentPostEffect);
         mPathTracingBlendTexture->BindTo(mPostEffectShaderProgram->GetUniform("finalTexture"), 0);
 
-        mQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
-        mQuad.Draw();
-        mQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Draw();
+        mScreenSpaceQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
 
         mPostEffectShaderProgram->SetActive(false);
     }

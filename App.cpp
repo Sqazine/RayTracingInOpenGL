@@ -8,6 +8,7 @@
 #include "Random.h"
 #include "ScenePathTracingInOneWeekend.h"
 #include "SceneCreatingAnImage.h"
+#include "SceneBackground.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
@@ -52,6 +53,7 @@ void App::Init()
 	Timer::Init();
 
 	mScenes.emplace_back(std::make_shared<SceneCreatingAnImage>());
+	mScenes.emplace_back(std::make_shared<SceneBackground>());
 	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
 
 	for (const auto &scene : mScenes)
@@ -114,7 +116,8 @@ void App::Draw()
 	ImGui::Text("Display frequency:%.1fFPS(%.3fms/frame)", ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
 
 	ImGui::RadioButton("SceneCreatingAnImage", &mCurSceneIndex, 0);
-	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 1);
+	ImGui::RadioButton("SceneBackground", &mCurSceneIndex, 1);
+	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 2);
 
 	ImGui::End();
 

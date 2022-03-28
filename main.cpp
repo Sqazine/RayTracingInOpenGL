@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 {
 	WindowCreateInfo windowInfo={};
 	windowInfo.title="RayTracingInOpenGL";
-	windowInfo.extent=Vector2u32(1024,768);
+	windowInfo.extent=Vector2u32(1600,900);
 	windowInfo.resizeable=false;
 
 	RenderContextCreateInfo renderInfo{};

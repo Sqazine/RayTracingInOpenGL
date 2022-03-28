@@ -16,8 +16,6 @@ SceneCreatingAnImage::~SceneCreatingAnImage()
 
 void SceneCreatingAnImage::Init()
 {
-    mQuad = Mesh(MeshType::QUAD);
-
     auto vertShader = GL::ShaderModule(GL::ShaderModuleType::VERTEX, Utils::LoadText(std::string(SHADER_DIR) + "vertex.vert"));
     auto imgFragShader = GL::ShaderModule(GL::ShaderModuleType::FRAGMENT, Utils::LoadText(std::string(SHADER_DIR) + "creating-an-image.frag"));
 
@@ -29,10 +27,8 @@ void SceneCreatingAnImage::Init()
 void SceneCreatingAnImage::Render()
 {
     mImgShaderProgram->SetActive(true);
-    mQuad.Bind(mImgShaderProgram->GetAttribute("inPosition"));
-    mQuad.Draw();
-    mQuad.UnBind(mImgShaderProgram->GetAttribute("inPosition"));
+    mScreenSpaceQuad.Bind(mImgShaderProgram->GetAttribute("inPosition"));
+    mScreenSpaceQuad.Draw();
+    mScreenSpaceQuad.UnBind(mImgShaderProgram->GetAttribute("inPosition"));
     mImgShaderProgram->SetActive(false);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

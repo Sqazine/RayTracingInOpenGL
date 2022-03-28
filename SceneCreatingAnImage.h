@@ -17,8 +17,5 @@ public:
     virtual void Init() override;
     virtual void Render() override;
 private:
-
     std::shared_ptr<GL::ShaderProgram> mImgShaderProgram;
-
-    Mesh mQuad;
 };
