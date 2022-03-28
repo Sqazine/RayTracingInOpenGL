@@ -15,12 +15,17 @@ struct Shape
 
 struct Sphere : public Shape
 {
+    Sphere(Vector3f o, float r) : origin(o), radius(r)
+    {
+        materialType = -1;
+        materialIdx = -1;
+    }
     Sphere(Vector3f o, float r, int matType, int matIdx) : origin(o), radius(r)
     {
         materialType = matType;
         materialIdx = matIdx;
     }
-    
+
     Vector3f origin;
     float radius;
 };
@@ -34,7 +39,7 @@ enum class MeshType
     CYLINDER,
 };
 
-class Mesh:public Shape
+class Mesh : public Shape
 {
 public:
     Mesh();

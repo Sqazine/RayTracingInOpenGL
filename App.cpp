@@ -9,6 +9,7 @@
 #include "ScenePathTracingInOneWeekend.h"
 #include "SceneCreatingAnImage.h"
 #include "SceneBackground.h"
+#include "SceneAddSphere.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
@@ -54,6 +55,7 @@ void App::Init()
 
 	mScenes.emplace_back(std::make_shared<SceneCreatingAnImage>());
 	mScenes.emplace_back(std::make_shared<SceneBackground>());
+	mScenes.emplace_back(std::make_shared<SceneAddSphere>());
 	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
 
 	for (const auto &scene : mScenes)
@@ -117,7 +119,8 @@ void App::Draw()
 
 	ImGui::RadioButton("SceneCreatingAnImage", &mCurSceneIndex, 0);
 	ImGui::RadioButton("SceneBackground", &mCurSceneIndex, 1);
-	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 2);
+	ImGui::RadioButton("SceneAddSphere", &mCurSceneIndex, 2);
+	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 3);
 
 	ImGui::End();
 
