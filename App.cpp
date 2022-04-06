@@ -11,6 +11,7 @@
 #include "SceneBackground.h"
 #include "SceneAddSphere.h"
 #include "SceneSurfaceNormal.h"
+#include "SceneMultipleObjects.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
@@ -58,6 +59,7 @@ void App::Init()
 	mScenes.emplace_back(std::make_shared<SceneBackground>());
 	mScenes.emplace_back(std::make_shared<SceneAddSphere>());
 	mScenes.emplace_back(std::make_shared<SceneSurfaceNormal>());
+	mScenes.emplace_back(std::make_shared<SceneMultipleObjects>());
 	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
 
 	for (const auto &scene : mScenes)
@@ -123,7 +125,8 @@ void App::Draw()
 	ImGui::RadioButton("SceneBackground", &mCurSceneIndex, 1);
 	ImGui::RadioButton("SceneAddSphere", &mCurSceneIndex, 2);
 	ImGui::RadioButton("SceneSurfaceNormal", &mCurSceneIndex, 3);
-	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 4);
+	ImGui::RadioButton("SceneMultipleObjects", &mCurSceneIndex, 4);
+	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 5);
 
 	ImGui::End();
 

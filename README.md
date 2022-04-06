@@ -32,9 +32,11 @@ The OpenGL implementation of Peter Shirley's ray tracing in one weekend series o
 ![](/imgs/Snipaste_2022-03-28_18-28-23.png)
 ## 4.Surface normal
 ![](/imgs/Snipaste_2022-03-28_22-18-33.png)
+## 5.Multiple objects
+![](/imgs/Snipaste_2022-04-07_03-55-52.png)
 
 
-## 4.Materials and post-effects
+## 6.Materials and post-effects
 No post effect
 ![](/imgs/Snipaste_2022-03-28_03-53-03.png)
 Sharpen
