@@ -4,7 +4,6 @@
 #define MATERIAL_HALF_LAMBERTIAN 1
 #define MATERIAL_METALLIC 2
 #define MATERIAL_DIELECTRIC 3
-#define MATERIAL_PBR 4
 
 struct Lambertian
 {
@@ -20,7 +19,7 @@ struct HalfLambertian
 
 struct Metal
 {
-    Metal(Vector3f albedo, float roughness) : albedo(albedo), roughness(roughness) {}
+    Metal(Vector3f albedo, float roughness = 0.0f) : albedo(albedo), roughness(roughness < 1.0 ? roughness : 1.0f) {}
     Vector3f albedo;
     float roughness;
 };

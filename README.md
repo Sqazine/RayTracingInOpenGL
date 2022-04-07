@@ -47,8 +47,13 @@ Lambertian
 Half lambertian
 ![](/imgs/Snipaste_2022-04-07_20-57-29.png)
 
+## 8.Metal material
+Smooth metal
+![](/imgs/Snipaste_2022-04-07_23-40-55.png)
+Fuzzed metal
+![](/imgs/Snipaste_2022-04-07_23-41-11.png)
 
-## 8.Materials and post-effects
+## 9.Materials and post-effects
 No post effect
 ![](/imgs/Snipaste_2022-03-28_03-53-03.png)
 Sharpen
