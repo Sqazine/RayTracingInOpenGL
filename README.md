@@ -64,6 +64,9 @@ Blur
 Edge detected
 ![](/imgs/Snipaste_2022-03-28_03-53-28.png)
 
+## 10.Defocus blur
+![](/imgs/Snipaste_2022-04-08_01-11-44.png)
+
 <!-- links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Sqazine/RayTracingInOpenGL.svg?style=flat-square
 [contributors-url]: https://github.com/Sqazine/RayTracingInOpenGL/graphs/contributors

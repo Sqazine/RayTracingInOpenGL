@@ -15,6 +15,7 @@
 #include "SceneAntialiasing.h"
 #include "SceneDiffuseMaterial.h"
 #include "SceneMetalMaterial.h"
+#include "SceneDefocusBlur.h"
 
 App::App(RenderContextCreateInfo renderContextCreateInfo)
 	: mIsRunning(true), mRenderContextCreateInfo(renderContextCreateInfo)
@@ -67,6 +68,7 @@ void App::Init()
 	mScenes.emplace_back(std::make_shared<SceneDiffuseMaterial>());
 	mScenes.emplace_back(std::make_shared<SceneMetalMaterial>());
 	mScenes.emplace_back(std::make_shared<SceneDielectricMaterialAndPositionableCamera>());
+	mScenes.emplace_back(std::make_shared<SceneDefocusBlur>());
 
 	for (const auto &scene : mScenes)
 		scene->Init();
@@ -136,6 +138,7 @@ void App::Draw()
 	ImGui::RadioButton("SceneDiffuseMaterial", &mCurSceneIndex, 6);
 	ImGui::RadioButton("SceneMetalMaterial", &mCurSceneIndex, 7);
 	ImGui::RadioButton("SceneDielectricMaterialAndPositionableCamera", &mCurSceneIndex, 8);
+	ImGui::RadioButton("SceneDefocusBlur", &mCurSceneIndex, 9);
 
 	ImGui::End();
 
