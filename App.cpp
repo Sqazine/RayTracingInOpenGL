@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Timer.h"
 #include "Random.h"
-#include "ScenePathTracingInOneWeekend.h"
+#include "SceneDielectricMaterialAndPositionableCamera.h"
 #include "SceneCreatingAnImage.h"
 #include "SceneBackground.h"
 #include "SceneAddSphere.h"
@@ -66,7 +66,7 @@ void App::Init()
 	mScenes.emplace_back(std::make_shared<SceneAntialiasing>());
 	mScenes.emplace_back(std::make_shared<SceneDiffuseMaterial>());
 	mScenes.emplace_back(std::make_shared<SceneMetalMaterial>());
-	mScenes.emplace_back(std::make_shared<ScenePathTracingInOneWeekend>());
+	mScenes.emplace_back(std::make_shared<SceneDielectricMaterialAndPositionableCamera>());
 
 	for (const auto &scene : mScenes)
 		scene->Init();
@@ -135,7 +135,7 @@ void App::Draw()
 	ImGui::RadioButton("SceneAntialiasing", &mCurSceneIndex, 5);
 	ImGui::RadioButton("SceneDiffuseMaterial", &mCurSceneIndex, 6);
 	ImGui::RadioButton("SceneMetalMaterial", &mCurSceneIndex, 7);
-	ImGui::RadioButton("ScenePathTracingInOneWeekend", &mCurSceneIndex, 8);
+	ImGui::RadioButton("SceneDielectricMaterialAndPositionableCamera", &mCurSceneIndex, 8);
 
 	ImGui::End();
 

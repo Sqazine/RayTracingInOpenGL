@@ -53,7 +53,8 @@ Smooth metal
 Fuzzed metal
 ![](/imgs/Snipaste_2022-04-07_23-41-11.png)
 
-## 9.Materials and post-effects
+## 9.Dielectric material,positionable camera and post-effects
+key WASD to move the camera,key shift to boost the camera move speed,mouse to rotate the camera's view
 No post effect
 ![](/imgs/Snipaste_2022-03-28_03-53-03.png)
 Sharpen

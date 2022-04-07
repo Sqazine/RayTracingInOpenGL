@@ -1,4 +1,4 @@
-#include "ScenePathTracingInOneWeekend.h"
+#include "SceneDielectricMaterialAndPositionableCamera.h"
 #include "App.h"
 #include "Input.h"
 #include "Timer.h"
@@ -6,7 +6,7 @@
 #include <imgui.h>
 #include "GL/Shader.h"
 #include "Utils.h"
-ScenePathTracingInOneWeekend::ScenePathTracingInOneWeekend()
+SceneDielectricMaterialAndPositionableCamera::SceneDielectricMaterialAndPositionableCamera()
     : mIsFirstFrame(true), spp(10), depth(10), mixValue(0.1)
 {
     mPostEffectGUIHint = "None";
@@ -19,11 +19,11 @@ ScenePathTracingInOneWeekend::ScenePathTracingInOneWeekend()
     mPostEffectGUIHint += '\0';
 }
 
-ScenePathTracingInOneWeekend::~ScenePathTracingInOneWeekend()
+SceneDielectricMaterialAndPositionableCamera::~SceneDielectricMaterialAndPositionableCamera()
 {
 }
 
-void ScenePathTracingInOneWeekend::Init()
+void SceneDielectricMaterialAndPositionableCamera::Init()
 {
 
     auto vertShader = GL::ShaderModule(GL::ShaderModuleType::VERTEX, Utils::LoadText(std::string(SHADER_DIR) + "vertex.vert"));
@@ -87,19 +87,19 @@ void ScenePathTracingInOneWeekend::Init()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void ScenePathTracingInOneWeekend::ProcessInput()
+void SceneDielectricMaterialAndPositionableCamera::ProcessInput()
 {
     if (Input::GetMouse()->IsReleativeMode() && Input::GetMouse()->GetButtonState(SDL_BUTTON_LEFT) == ButtonState::HOLD)
         mCamera.ProcessInput();
 }
 
-void ScenePathTracingInOneWeekend::Update()
+void SceneDielectricMaterialAndPositionableCamera::Update()
 {
     if (Input::GetMouse()->GetButtonState(SDL_BUTTON_LEFT) == ButtonState::HOLD)
         mCamera.Update();
 }
 
-void ScenePathTracingInOneWeekend::Render()
+void SceneDielectricMaterialAndPositionableCamera::Render()
 {
     //pass 0
     {
@@ -203,7 +203,7 @@ void ScenePathTracingInOneWeekend::Render()
     }
 }
 
-void ScenePathTracingInOneWeekend::RenderUI()
+void SceneDielectricMaterialAndPositionableCamera::RenderUI()
 {
     ImGui::Begin("Setting");
 

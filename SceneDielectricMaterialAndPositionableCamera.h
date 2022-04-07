@@ -13,11 +13,11 @@
 #include "World.h"
 
 
-class ScenePathTracingInOneWeekend : public Scene
+class SceneDielectricMaterialAndPositionableCamera : public Scene
 {
 public:
-    ScenePathTracingInOneWeekend();
-    ~ScenePathTracingInOneWeekend();
+    SceneDielectricMaterialAndPositionableCamera();
+    ~SceneDielectricMaterialAndPositionableCamera();
 
     virtual void Init() override;
     virtual void ProcessInput() override;
