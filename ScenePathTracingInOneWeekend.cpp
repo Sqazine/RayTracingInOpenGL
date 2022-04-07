@@ -176,9 +176,9 @@ void ScenePathTracingInOneWeekend::Render()
 
         mBlendShaderProgram->SetUniformValue("mixValue", tmpMixValue);
 
-        mScreenSpaceQuad.Bind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.Bind(mBlendShaderProgram->GetAttribute("inPosition"));
         mScreenSpaceQuad.Draw();
-        mScreenSpaceQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
+        mScreenSpaceQuad.UnBind(mBlendShaderProgram->GetAttribute("inPosition"));
 
         mBlendShaderProgram->SetActive(false);
 

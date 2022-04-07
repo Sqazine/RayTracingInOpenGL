@@ -128,9 +128,6 @@ bool WorldHit(Ray ray,float t_min,float t_max,inout HitRecord rec)
 vec3 RayColor(Ray ray)
 {
     HitRecord hitRecord;
-    vec3 attenuation=vec3(1.0);
-    vec3 color=vec3(0.0);
-
         if(WorldHit(ray,0.001,100000.0,hitRecord))
         {
             return 0.5*(hitRecord.normal+vec3(1.0,1.0,1.0));

@@ -60,6 +60,11 @@ vec3 RandInUnitSphere()
   return v;
 }
 
+vec3 RandInUnitVector()
+{
+    return normalize(RandInUnitSphere());
+}
+
 vec3 RandInHemiSphere(in vec3 normal)
 {
     vec3 randInSphere=RandInUnitSphere();
@@ -228,7 +233,7 @@ bool LambertianScatter(in Lambertian lambertian,in Ray incident,in HitRecord hit
 {
     attenuation=lambertian.albedo;
     scattered.origin=hitRecord.position;
-    scattered.direction=normalize(hitRecord.normal+RandInUnitSphere());
+    scattered.direction=normalize(hitRecord.normal+RandInUnitVector());
     if(IsNearZero(scattered.direction))
         scattered.direction=hitRecord.normal;
     return true;
