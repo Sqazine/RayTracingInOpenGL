@@ -26,8 +26,6 @@ struct Metal
 
 struct Dielectric
 {
-    Dielectric(Vector3f albedo, float roughness, float ior) : albedo(albedo), roughness(roughness), ior(ior) {}
-    Vector3f albedo;
-    float roughness;
+    Dielectric(float ior) : ior(ior) {}
     float ior;
 };

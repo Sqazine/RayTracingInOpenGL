@@ -55,7 +55,7 @@ void SceneDielectricMaterialAndPositionableCamera::Init()
     mHalfLambertianMaterials.emplace_back(HalfLambertian(Vector3f(0.1f, 0.2f, 0.5f)));
     mMetalMaterials.emplace_back(Metal(Vector3f(0.8f), 0.3f));
     mMetalMaterials.emplace_back(Metal(Vector3f(0.8f, 0.6f, 0.2f), 0.0f));
-    mDielectricMaterials.emplace_back(Dielectric(Vector3f(1.0f), 0.1f, 1.5f));
+    mDielectricMaterials.emplace_back(Dielectric(1.5f));
 
     Vector3f camPos = Vector3f(0.0f, 0.0f, 1.0f);
     Vector3f camTar = Vector3f(0.0f, 0.0f, -1.0f);
@@ -139,8 +139,6 @@ void SceneDielectricMaterialAndPositionableCamera::Render()
         }
         for (int i = 0; i < mDielectricMaterials.size(); ++i)
         {
-            mPathTracingShaderProgram->SetUniformValue("dielectricMaterials[" + std::to_string(i) + "].albedo", mDielectricMaterials[i].albedo);
-            mPathTracingShaderProgram->SetUniformValue("dielectricMaterials[" + std::to_string(i) + "].roughness", mDielectricMaterials[i].roughness);
             mPathTracingShaderProgram->SetUniformValue("dielectricMaterials[" + std::to_string(i) + "].ior", mDielectricMaterials[i].ior);
         }
         mPathTracingShaderProgram->SetUniformValue("spp", spp);

@@ -67,6 +67,10 @@ Edge detected
 ## 10.Defocus blur
 ![](/imgs/Snipaste_2022-04-08_01-11-44.png)
 
+## 11.Ray tracing in one weekend final scene
+*Due to opengl uniform buffer memory limit,this scene not contained too much sphere object 
+![](/imgs/Snipaste_2022-04-08_01-46-35.png)
+
 <!-- links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Sqazine/RayTracingInOpenGL.svg?style=flat-square
 [contributors-url]: https://github.com/Sqazine/RayTracingInOpenGL/graphs/contributors

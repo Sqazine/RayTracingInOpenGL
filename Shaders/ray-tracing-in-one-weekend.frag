@@ -2,11 +2,11 @@
 
 #define PI 3.1415926535
 
-#define OBJECT_COUNT 10
-#define LAMBERTIAN_MATERIAL_COUNT 10
-#define HALF_LAMBERTIAN_MATERIAL_COUNT 10
-#define METAL_MATERIAL_COUNT 10
-#define DIELECTRIC_MATERIAL_COUNT 10
+#define OBJECT_COUNT 50
+#define LAMBERTIAN_MATERIAL_COUNT 50
+#define HALF_LAMBERTIAN_MATERIAL_COUNT 50
+#define METAL_MATERIAL_COUNT 50
+#define DIELECTRIC_MATERIAL_COUNT 50
 
 #define MATERIAL_LAMBERTIAN 0
 #define MATERIAL_HALF_LAMBERTIAN 1
@@ -108,8 +108,6 @@ struct Metallic
 
 struct Dielectric
 {
-    vec3 albedo;
-    float roughness;
     float ior;
 };
 

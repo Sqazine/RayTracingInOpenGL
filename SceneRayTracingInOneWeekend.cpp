@@ -1,4 +1,4 @@
-#include "SceneDefocusBlur.h"
+#include "SceneRayTracingInOneWeekend.h"
 #include "App.h"
 #include "Input.h"
 #include "Timer.h"
@@ -6,8 +6,8 @@
 #include <imgui.h>
 #include "GL/Shader.h"
 #include "Utils.h"
-SceneDefocusBlur::SceneDefocusBlur()
-    : mIsFirstFrame(true), spp(10), depth(10), mixValue(0.1),camAperture(2.0f),camVFov(90.0f)
+SceneRayTracingInOneWeekend::SceneRayTracingInOneWeekend()
+    : mIsFirstFrame(true), spp(10), depth(10), mixValue(0.1),camAperture(0.1f),camVFov(20.0f)
 {
     mPostEffectGUIHint = "None";
     mPostEffectGUIHint += '\0';
@@ -19,11 +19,11 @@ SceneDefocusBlur::SceneDefocusBlur()
     mPostEffectGUIHint += '\0';
 }
 
-SceneDefocusBlur::~SceneDefocusBlur()
+SceneRayTracingInOneWeekend::~SceneRayTracingInOneWeekend()
 {
 }
 
-void SceneDefocusBlur::Init()
+void SceneRayTracingInOneWeekend::Init()
 {
 
     auto vertShader = GL::ShaderModule(GL::ShaderModuleType::VERTEX, Utils::LoadText(std::string(SHADER_DIR) + "vertex.vert"));
@@ -43,24 +43,12 @@ void SceneDefocusBlur::Init()
     mPostEffectShaderProgram->AttachShader(vertShader);
     mPostEffectShaderProgram->AttachShader(postEffectFragShader);
 
-    mWorld.AddSphere(Sphere(Vector3f(0.0f, 0.0f, -1.0f), 0.5f, MATERIAL_HALF_LAMBERTIAN, 1));
-    mWorld.AddSphere(Sphere(Vector3f(-1.1f, 0.0f, -1.0f), 0.5f, MATERIAL_DIELECTRIC, 0));
-    mWorld.AddSphere(Sphere(Vector3f(-1.1f, 0.0f, -1.0f), -0.499f, MATERIAL_DIELECTRIC, 0));
-    mWorld.AddSphere(Sphere(Vector3f(1.1f, 0.0f, -1.0f), 0.5f, MATERIAL_METALLIC, 1));
-    mWorld.AddSphere(Sphere(Vector3f(0.0f, -100.5f, -1.0f), 100.0f, MATERIAL_HALF_LAMBERTIAN, 0));
+    InitScene();
 
-    mLambertianMaterials.emplace_back(Lambertian(Vector3f(0.8f, 0.8f, 0.0f)));
-    mLambertianMaterials.emplace_back(Lambertian(Vector3f(0.1f, 0.2f, 0.5f)));
-    mHalfLambertianMaterials.emplace_back(HalfLambertian(Vector3f(0.8f, 0.8f, 0.0f)));
-    mHalfLambertianMaterials.emplace_back(HalfLambertian(Vector3f(0.1f, 0.2f, 0.5f)));
-    mMetalMaterials.emplace_back(Metal(Vector3f(0.8f), 0.3f));
-    mMetalMaterials.emplace_back(Metal(Vector3f(0.8f, 0.6f, 0.2f), 0.0f));
-    mDielectricMaterials.emplace_back(Dielectric(1.5f));
+    Vector3f camPos = Vector3f(13.0f, 2.0f, 3.0f);
+    Vector3f camTar = Vector3f(0.0f, 0.0f, 0.0f);
 
-    Vector3f camPos = Vector3f(3.0f, 3.0f, 2.0f);
-    Vector3f camTar = Vector3f(0.0f, 0.0f, -1.0f);
-
-    camFocusDist=(camPos - camTar).Length();
+    camFocusDist=10.0;
 
     mCamera = Camera(camPos, camTar, Vector3f(0.0f, 1.0f, 0.0f), camVFov, GL::Context::GetWindowExtent().x / (float)GL::Context::GetWindowExtent().y, camAperture,camFocusDist );
 
@@ -90,13 +78,13 @@ void SceneDefocusBlur::Init()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void SceneDefocusBlur::ProcessInput()
+void SceneRayTracingInOneWeekend::ProcessInput()
 {
     if (Input::GetMouse()->IsReleativeMode() && Input::GetMouse()->GetButtonState(SDL_BUTTON_LEFT) == ButtonState::HOLD)
         mCamera.ProcessInput();
 }
 
-void SceneDefocusBlur::Update()
+void SceneRayTracingInOneWeekend::Update()
 {
     mCamera.lensRadius=camAperture/2.0f;
     mCamera.vfov=camVFov;
@@ -106,7 +94,7 @@ void SceneDefocusBlur::Update()
         mCamera.Update();
 }
 
-void SceneDefocusBlur::Render()
+void SceneRayTracingInOneWeekend::Render()
 {
     //pass 0
     {
@@ -208,7 +196,7 @@ void SceneDefocusBlur::Render()
     }
 }
 
-void SceneDefocusBlur::RenderUI()
+void SceneRayTracingInOneWeekend::RenderUI()
 {
     ImGui::Begin("Setting");
 
@@ -221,4 +209,53 @@ void SceneDefocusBlur::RenderUI()
     ImGui::Combo("post effect", &currentPostEffect, mPostEffectGUIHint.c_str());
 
     ImGui::End();
+}
+
+void SceneRayTracingInOneWeekend::InitScene()
+{
+    mLambertianMaterials.emplace_back(Vector3f(0.5f, 0.5f, 0.5f));
+    mWorld.AddSphere(Sphere(Vector3f(0.0f, -1000.0f, -1.0f), 1000.0f, MATERIAL_LAMBERTIAN, mLambertianMaterials.size()-1));
+
+    for(int32_t a=-3;a<4;++a)
+    {
+        for(int32_t b=-3;b<3;++b)
+        {
+            auto choose_mat=Random::GetFloat01();
+            Vector3f center=Vector3f(a+0.9f*Random::GetFloat01(),0.2,b+0.9f*Random::GetFloat01());
+
+            if((center-Vector3f(4,0.2,0)).Length()>0.9f)
+            {
+                if(choose_mat<0.8)
+                {
+                    //lambertian
+                    auto albedo=Random::GetVector3<float>(0.0,1.0)*Random::GetVector3<float>(0.0,1.0);
+                    mLambertianMaterials.emplace_back(albedo);
+                    mWorld.AddSphere(Sphere(center,0.2,MATERIAL_LAMBERTIAN,mLambertianMaterials.size()-1));
+                }
+                else if(choose_mat<0.95)
+                {
+                    //metal
+                     auto albedo=Random::GetVector3<float>(0.5,1.0);
+                     auto fuzzed=Random::GetFloat(0.0,0.5);
+                     mMetalMaterials.emplace_back(albedo,fuzzed);
+                     mWorld.AddSphere(Sphere(center,0.2,MATERIAL_METALLIC,mMetalMaterials.size()-1));
+                }
+                else
+                {
+                    //glass
+                    mDielectricMaterials.emplace_back(1.5);
+                    mWorld.AddSphere(Sphere(center,0.2,MATERIAL_DIELECTRIC,mDielectricMaterials.size()-1));
+                }
+            }
+        }
+    }
+
+    mDielectricMaterials.emplace_back(1.5);
+    mWorld.AddSphere(Sphere(Vector3f(0,1,0),1.0,MATERIAL_DIELECTRIC,mDielectricMaterials.size()-1));
+
+    mLambertianMaterials.emplace_back(Vector3f(0.4,0.2,0.1));
+    mWorld.AddSphere(Sphere(Vector3f(-4,1,0),1.0,MATERIAL_LAMBERTIAN,mLambertianMaterials.size()-1));
+
+    mMetalMaterials.emplace_back(Vector3f(0.7,0.6,0.5));
+    mWorld.AddSphere(Sphere(Vector3f(4,1,0),1.0,MATERIAL_METALLIC,mMetalMaterials.size()-1));
 }
