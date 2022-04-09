@@ -5,6 +5,7 @@
 #include "Random.h"
 #include <imgui.h>
 #include "GL/Shader.h"
+#include "GL/Renderer.h"
 #include "Utils.h"
 SceneDielectricMaterialAndPositionableCamera::SceneDielectricMaterialAndPositionableCamera()
     : mIsFirstFrame(true), spp(10), depth(10), mixValue(0.1)
@@ -76,15 +77,8 @@ void SceneDielectricMaterialAndPositionableCamera::Init()
     mPathTracingTexture = std::make_shared<GL::Texture2D>(textureCreateInfo);
     mPathTracingBlendTexture = std::make_shared<GL::Texture2D>(textureCreateInfo);
 
-    glGenFramebuffers(1, &mPathTracingFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mPathTracingTexture->GetID(), 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    glGenFramebuffers(1, &mPathTracingBlendFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingBlendFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mPathTracingBlendTexture->GetID(), 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    mPathTracingFrameBuffer = std::make_shared<GL::FrameBuffer>(mPathTracingTexture.get());
+    mPathTracingBlendFrameBuffer = std::make_shared<GL::FrameBuffer>(mPathTracingBlendTexture.get());
 }
 
 void SceneDielectricMaterialAndPositionableCamera::ProcessInput()
@@ -103,9 +97,8 @@ void SceneDielectricMaterialAndPositionableCamera::Render()
 {
     //pass 0
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingFBO);
-        glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        mPathTracingFrameBuffer->SetActive(true);
+        GL::Renderer::ClearColorBuffer(0.2f, 0.3f, 0.5f, 1.0f);
 
         mPathTracingShaderProgram->SetActive(true);
         mPathTracingShaderProgram->SetUniformValue("textureExtent", Vector2f(GL::Context::GetWindowExtent().x, GL::Context::GetWindowExtent().y));
@@ -148,11 +141,11 @@ void SceneDielectricMaterialAndPositionableCamera::Render()
         mScreenSpaceQuad.UnBind(mPathTracingShaderProgram->GetAttribute("inPosition"));
         mPathTracingShaderProgram->SetActive(false);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        mPathTracingFrameBuffer->SetActive(false);
     }
     //pass 1
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingBlendFBO);
+        mPathTracingBlendFrameBuffer->SetActive(true);
 
         mBlendShaderProgram->SetActive(true);
 
@@ -180,14 +173,11 @@ void SceneDielectricMaterialAndPositionableCamera::Render()
 
         mBlendShaderProgram->SetActive(false);
 
-        // glDisable(GL_DEPTH_TEST);
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        mPathTracingBlendFrameBuffer->SetActive(false);
     }
     //pass 2
     {
-        glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GL::Renderer::ClearColorBuffer(0.2f, 0.3f, 0.5f, 1.0f);
 
         mPostEffectShaderProgram->SetActive(true);
         mPostEffectShaderProgram->SetUniformValue("postEffectType", currentPostEffect);

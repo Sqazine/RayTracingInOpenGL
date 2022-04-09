@@ -33,7 +33,7 @@ namespace GL
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	uint32_t Texture2D::GetID()
+	uint32_t Texture2D::GetID() const
 	{
 		return mTextureID;
 	}

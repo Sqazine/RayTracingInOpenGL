@@ -5,6 +5,7 @@
 #include "App.h"
 #include "GL/Shader.h"
 #include "GL/Texture.h"
+#include "GL/FrameBuffer.h"
 #include "Shape.h"
 #include <glm/glm.hpp>
 #include "Camera.h"
@@ -33,10 +34,10 @@ private:
 
     Camera mCamera;
 
-    uint32_t mPathTracingFBO;
+    std::shared_ptr<GL::FrameBuffer> mPathTracingFrameBuffer;
     std::shared_ptr<GL::Texture2D> mPathTracingTexture;
 
-    uint32_t mPathTracingBlendFBO;
+    std::shared_ptr<GL::FrameBuffer> mPathTracingBlendFrameBuffer;
     std::shared_ptr<GL::Texture2D> mPathTracingBlendTexture;
 
     bool mIsFirstFrame;

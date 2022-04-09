@@ -58,7 +58,7 @@ namespace GL
 		void BindTo(uint32_t uniform, uint32_t texIndex);
 		void UnBindFrom(uint32_t textureIndex);
 
-		uint32_t GetID();
+		uint32_t GetID() const;
 		const Texture2DCreateInfo& GetCreateInfo();
 	protected:
 

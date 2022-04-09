@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "Random.h"
 #include "GL/Shader.h"
+#include "GL/Renderer.h"
 #include "Utils.h"
 #include "Vector3.h"
 #include <imgui.h>
@@ -65,24 +66,16 @@ void SceneDiffuseMaterial::Init()
     mPathTracingTexture = std::make_shared<GL::Texture2D>(textureCreateInfo);
     mPathTracingBlendTexture = std::make_shared<GL::Texture2D>(textureCreateInfo);
 
-    glGenFramebuffers(1, &mPathTracingFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mPathTracingTexture->GetID(), 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    glGenFramebuffers(1, &mPathTracingBlendFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingBlendFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mPathTracingBlendTexture->GetID(), 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    mPathTracingFrameBuffer = std::make_shared<GL::FrameBuffer>(mPathTracingTexture.get());
+    mPathTracingBlendFrameBuffer = std::make_shared<GL::FrameBuffer>(mPathTracingBlendTexture.get());
 }
 
 void SceneDiffuseMaterial::Render()
 {
     // pass:ray tracing
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingFBO);
-        glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        mPathTracingFrameBuffer->SetActive(true);
+        GL::Renderer::ClearColorBuffer(0.2f, 0.3f, 0.5f, 1.0f);
 
         mDiffuseMaterialProgram->SetActive(true);
 
@@ -108,12 +101,12 @@ void SceneDiffuseMaterial::Render()
         mScreenSpaceQuad.UnBind(mDiffuseMaterialProgram->GetAttribute("inPosition"));
         mDiffuseMaterialProgram->SetActive(false);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        mPathTracingFrameBuffer->SetActive(false);
     }
 
     // pass :history frame accumulation
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, mPathTracingBlendFBO);
+        mPathTracingBlendFrameBuffer->SetActive(true);
         mBlendShaderProgram->SetActive(true);
 
         if (mIsFirstFrame)
@@ -133,13 +126,12 @@ void SceneDiffuseMaterial::Render()
         mScreenSpaceQuad.UnBind(mBlendShaderProgram->GetAttribute("inPosition"));
 
         mBlendShaderProgram->SetActive(false);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        mPathTracingBlendFrameBuffer->SetActive(false);
     }
 
     // pass :final output
     {
-        glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GL::Renderer::ClearColorBuffer(0.2f, 0.3f, 0.5f, 1.0f);
 
         mOutputShaderProgram->SetActive(true);
         mPathTracingBlendTexture->BindTo(mOutputShaderProgram->GetUniform("finalTexture"), 0);

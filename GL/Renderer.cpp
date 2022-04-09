@@ -18,19 +18,20 @@ namespace GL
     }
 
     void Renderer::EnableDepthTest(bool active)
-{
-	if (active)
-		glEnable(GL_DEPTH_TEST);
-	else
-		glDisable(GL_DEPTH_TEST);
-}
+    {
+        if (active)
+            glEnable(GL_DEPTH_TEST);
+        else
+            glDisable(GL_DEPTH_TEST);
+    }
 
-	void Renderer::EnableCullFace(bool active)
-	{	
-		if(active)
-			glEnable(GL_CULL_FACE);
-		else glDisable(GL_CULL_FACE);
-	}
+    void Renderer::EnableCullFace(bool active)
+    {
+        if (active)
+            glEnable(GL_CULL_FACE);
+        else
+            glDisable(GL_CULL_FACE);
+    }
 
     void Renderer::Render(const std::shared_ptr<IndexBuffer> &ibo, RenderType mode)
     {
